@@ -1,10 +1,14 @@
 import json
 import requests
 
+headers = {
+    'Cache-Control': 'no-cache',
+}
+
 v_url = 'https://raw.githubusercontent.com/Whee30/program_updater/refs/heads/main/remote_version.json'
-v_response = requests.get(v_url)
+v_response = requests.get(v_url, headers=headers)
 p_url = 'https://raw.githubusercontent.com/Whee30/program_updater/refs/heads/main/program.txt'
-p_response = requests.get(p_url)
+p_response = requests.get(p_url, headers=headers)
 
 # Local path where you want to save the downloaded file
 p_dest = 'file.txt'
