@@ -5,23 +5,30 @@ headers = {
     'Cache-Control': 'no-cache',
 }
 
-v_url = 'https://raw.githubusercontent.com/Whee30/program_updater/refs/heads/main/remote_version.json'
-v_response = requests.get(v_url, headers=headers)
-p_url = 'https://raw.githubusercontent.com/Whee30/program_updater/refs/heads/main/program.txt'
-p_response = requests.get(p_url, headers=headers)
+# Dictionary to store the different files to be updated
+update_files = {
+    "program": "https://raw.githubusercontent.com/Whee30/program_updater/refs/heads/main/program.txt",
+    "verbiage": "https://raw.githubusercontent.com/Whee30/program_updater/refs/heads/main/verbiage.txt",
+    "template": "https://raw.githubusercontent.com/Whee30/program_updater/refs/heads/main/template.txt"
+}
 
-# Local path where you want to save the downloaded file
-p_dest = 'file.txt'
+# Remote version to compare against
+version_url = 'https://raw.githubusercontent.com/Whee30/program_updater/refs/heads/main/remote_version.json'
+version_response = requests.get(version_url, headers=headers)
 
-if v_response.status_code == 200:
-    remote_data = v_response.json()
-    print(remote_data['v'])
+def compare_versions():
+    print(remote_data['template'])
+
+if version_response.status_code == 200:
+    remote_data = version_response.json()
+    compare_versions()
 else:
-    print(f"Failed to fetch data: {v_response.status_code}")
+    print(f"Failed to fetch data: {version_response.status_code}")
 
+'''
 def update_local(new_version):
     with open(p_dest, 'wb') as file:
-        file.write(p_response.content)
+        #file.write(p_response.content)
     with open('local_version.json', 'r') as local_v:
         local_d = json.load(local_v)
         local_d['v'] = new_version
@@ -42,4 +49,4 @@ elif remote_data['v'] == local_data['v']:
     print("They're the same")
 else:
     print("something else happened")
-
+'''
