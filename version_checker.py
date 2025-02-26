@@ -50,6 +50,7 @@ def download_update(target, version):
         json.dump(local_version_data, file, indent=4)
     print(f"{target} was updated.")
 
+# Check for a valid connection to the remote version file
 if version_response.status_code == 200:
     remote_data = version_response.json()
     compare_versions()
